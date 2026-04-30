@@ -43,14 +43,27 @@ def detect_face_direction(image_path, model_path='../models/face_landmarker.task
             return "straight"
 
 if __name__ == "__main__":
+    import cv2
+    import os
+    
+    def process_and_save(img_path):
+        result = detect_face_direction(img_path)
+        print(f"{img_path} -> {result}")
+        if result != "None":
+            # Gorseli oku, uzerine sonucu yaz ve kaydet
+            image = cv2.imread(img_path)
+            if image is not None:
+                cv2.putText(image, f"RESULT: {result.upper()}", (20, 50), cv2.FONT_HERSHEY_SIMPLEX, 1.5, (0, 0, 255), 4)
+                filename = os.path.basename(img_path)
+                cv2.imwrite(f"output_{filename}", image)
+
     if len(sys.argv) > 1:
         img_path = sys.argv[1]
-        print(f"{img_path} -> {detect_face_direction(img_path)}")
+        process_and_save(img_path)
     else:
         images = ['../face-1.png', '../face-2.png', '../face-3.png']
         for img in images:
             try:
-                res = detect_face_direction(img)
-                print(f"{img}: {res}")
+                process_and_save(img)
             except Exception as e:
                 print(f"Error processing {img}: {e}")

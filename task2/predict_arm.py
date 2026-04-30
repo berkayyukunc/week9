@@ -39,12 +39,25 @@ def detect_raised_arm(image_path, model_path='../models/pose_landmarker.task'):
             return "None"
 
 if __name__ == "__main__":
-    if len(sys.argv) > 1:
-        img_path = sys.argv[1]
+    import cv2
+    import os
+    
+    def process_and_save(img_path):
         result = detect_raised_arm(img_path)
         print(f"{img_path} -> {result}")
+        if result != "None":
+            # Gorseli oku, uzerine sonucu yaz ve kaydet
+            image = cv2.imread(img_path)
+            if image is not None:
+                # Yaziyi buyuk ve gorunur yapalim
+                cv2.putText(image, f"RESULT: {result.upper()}", (50, 50), cv2.FONT_HERSHEY_SIMPLEX, 1.5, (0, 255, 0), 4)
+                filename = os.path.basename(img_path)
+                cv2.imwrite(f"output_{filename}", image)
+
+    if len(sys.argv) > 1:
+        img_path = sys.argv[1]
+        process_and_save(img_path)
     else:
         images = ['../pose-1.jpg', '../pose-2.jpg', '../pose-3.jpg']
         for img in images:
-            res = detect_raised_arm(img)
-            print(f"{img}: {res}")
+            process_and_save(img)
