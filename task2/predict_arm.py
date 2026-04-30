@@ -27,13 +27,8 @@ def detect_raised_arm(image_path, model_path='../models/pose_landmarker.task'):
         if is_left_up and is_right_up:
             return "both"
         elif is_left_up and not is_right_up:
-            # pose-1.jpg'de MediaPipe sag kolu (kameranin solundaki) sol bilek olarak isaretliyor.
-            # Eger havada olan kol kameranin solundaysa (x < 0.5), bu kisinin sag koludur.
-            if left_wrist.x < 0.5:
-                return "right"
             return "left"
         elif is_right_up and not is_left_up:
-            # pose-2'de sag bilek is_right_up=True donuyor ve "right" bekleniyor.
             return "right"
         else:
             return "None"
