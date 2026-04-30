@@ -53,7 +53,7 @@ if __name__ == "__main__":
             # Gorseli oku, uzerine sonucu yaz ve kaydet
             image = cv2.imread(img_path)
             if image is not None:
-                cv2.putText(image, f"RESULT: {result.upper()}", (20, 50), cv2.FONT_HERSHEY_SIMPLEX, 1.5, (0, 0, 255), 4)
+                cv2.putText(image, result.upper(), (20, 40), cv2.FONT_HERSHEY_SIMPLEX, 1.0, (0, 0, 255), 3)
                 filename = os.path.basename(img_path)
                 cv2.imwrite(f"output_{filename}", image)
 

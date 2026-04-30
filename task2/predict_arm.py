@@ -49,8 +49,8 @@ if __name__ == "__main__":
             # Gorseli oku, uzerine sonucu yaz ve kaydet
             image = cv2.imread(img_path)
             if image is not None:
-                # Yaziyi buyuk ve gorunur yapalim
-                cv2.putText(image, f"RESULT: {result.upper()}", (50, 50), cv2.FONT_HERSHEY_SIMPLEX, 1.5, (0, 255, 0), 4)
+                # Yaziyi daha kucuk ve sade yapalim ki ekrana sigsin
+                cv2.putText(image, result.upper(), (20, 40), cv2.FONT_HERSHEY_SIMPLEX, 1.0, (0, 255, 0), 3)
                 filename = os.path.basename(img_path)
                 cv2.imwrite(f"output_{filename}", image)
 
